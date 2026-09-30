@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpendWise - Monthly Spending Analysis</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f1ff;
+    color: #222;
+}
+
+header {
+    background: linear-gradient(135deg, #5848c8, #7b61ff);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 45px;
+}
+
+header h1 {
+    margin: 5px;
+    font-size: 34px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #d5d0e8;
+    text-align: center;
+}
+
+.card h3 {
+    color: #5848c8;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.amount {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.form-section {
+    margin-top: 30px;
+}
+
+input {
+    padding: 12px;
+    margin: 6px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+button {
+    padding: 11px 20px;
+    margin: 6px;
+    border: none;
+    border-radius: 8px;
+    background: #5848c8;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #4032a0;
+}
+
+.result {
+    margin-top: 15px;
+    padding: 15px;
+    background: #eeeaff;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background: #5848c8;
+    color: white;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">💰</div>
+    <h1>SpendWise</h1>
+    <p>Monthly Spending Analysis System</p>
+</header>
+
+<div class="container">
+
+<h2>🚀 SpendWise Modules</h2>
+
+<div class="modules">
+
+<div class="card">
+<h3>👤 Module 1</h3>
+<p>User Login & Registration</p>
+<button onclick="userLogin()">Login</button>
+</div>
+
+<div class="card">
+<h3>💰 Module 2</h3>
+<p>Income & Expense Management</p>
+<button onclick="showExpense()">Manage</button>
+</div>
+
+<div class="card">
+<h3>📊 Module 3</h3>
+<p>Budget & Spending Analysis</p>
+<button onclick="calculate()">Analyze</button>
+</div>
+
+<div class="card">
+<h3>🛡️ Module 4</h3>
+<p>Admin Management</p>
+<button onclick="adminLogin()">Admin</button>
+</div>
+
+</div>
+
+<h2>📊 Financial Dashboard</h2>
+
+<div class="dashboard">
+
+<div class="card">
+<h3>💵 Income</h3>
+<div class="amount" id="income">₹1000</div>
+</div>
+
+<div class="card">
+<h3>💸 Expenses</h3>
+<div class="amount" id="expense">₹200</div>
+</div>
+
+<div class="card">
+<h3>💰 Balance</h3>
+<div class="amount" id="balance">₹800</div>
+</div>
+
+<div class="card">
+<h3>🎯 Budget</h3>
+<div class="amount" id="budget">₹500</div>
+</div>
+
+</div>
+
+<div class="card form-section">
+
+<h2>💸 Add Expense</h2>
+
+<input type="text" id="category" placeholder="Category">
+<input type="number" id="expenseAmount" placeholder="Amount">
+<br>
+
+<button onclick="addExpense()">➕ Add Expense</button>
+
+<div class="result" id="expenseResult">
+No new expense added.
+</div>
+
+</div>
+
+<div class="card form-section">
+
+<h2>🎯 Monthly Budget</h2>
+
+<input type="number" id="budgetInput" placeholder="Enter Budget">
+<br>
+
+<button onclick="setBudget()">Set Budget</button>
+
+<div class="result" id="budgetResult">
+Current Budget: ₹500
+</div>
+
+</div>
+
+<div class="card form-section">
+
+<h2>📈 Spending Analysis</h2>
+
+<button onclick="calculate()">Calculate Analysis</button>
+
+<div class="result" id="analysis">
+Your spending analysis will appear here.
+</div>
+
+</div>
+
+</div>
+
+<footer>
+💰 SpendWise | Monthly Spending Analysis System
+<br>
+B.Tech CSE (DS) Mini Project
+</footer>
+
+
+<script>
+
+let income = 1000;
+let expense = 200;
+let budget = 500;
+
+function updateDashboard() {
+
+    document.getElementById("income").innerText = "₹" + income;
+    document.getElementById("expense").innerText = "₹" + expense;
+    document.getElementById("balance").innerText =
+        "₹" + (income - expense);
+    document.getElementById("budget").innerText =
+        "₹" + budget;
+}
+
+function userLogin() {
+
+    let name = prompt("Enter your name:");
+
+    if(name) {
+        alert("Welcome " + name + " to SpendWise!");
+    }
+}
+
+function adminLogin() {
+
+    let username = prompt("Enter Admin Username:");
+
+    if(username) {
+        alert("Welcome Admin! 🛡️");
+    }
+}
+
+function addExpense() {
+
+    let category =
+        document.getElementById("category").value;
+
+    let amount =
+        Number(document.getElementById("expenseAmount").value);
+
+    if(category === "" || amount <= 0) {
+
+        alert("Please enter valid expense details.");
+        return;
+    }
+
+    expense = expense + amount;
+
+    updateDashboard();
+
+    document.getElementById("expenseResult").innerText =
+        "Added ₹" + amount + " for " + category +
+        ". Total Expense: ₹" + expense;
+
+    document.getElementById("category").value = "";
+    document.getElementById("expenseAmount").value = "";
+}
+
+function setBudget() {
+
+    let value =
+        Number(document.getElementById("budgetInput").value);
+
+    if(value <= 0) {
+
+        alert("Enter a valid budget.");
+        return;
+    }
+
+    budget = value;
+
+    updateDashboard();
+
+    document.getElementById("budgetResult").innerText =
+        "Current Budget: ₹" + budget;
+}
+
+function calculate() {
+
+    let balance = income - expense;
+    let remaining = budget - expense;
+
+    document.getElementById("analysis").innerText =
+        "Total Expense: ₹" + expense +
+        " | Balance: ₹" + balance +
+        " | Budget Remaining: ₹" + remaining;
+}
+
+function showExpense() {
+
+    document.querySelector(".form-section").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
